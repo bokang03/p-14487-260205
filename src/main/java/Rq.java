@@ -1,11 +1,13 @@
 public class Rq {
+
     private String cmd;
 
-    public Rq(String cmd){
+    public Rq(String cmd) {
         this.cmd = cmd;
     }
 
-    public String getActionName(){
+    public String getActionName() {
+
         return cmd.split("\\?")[0];
     }
 
@@ -13,14 +15,15 @@ public class Rq {
 
         String params = cmd.split("\\?")[1];
 
-        for(String param : params.split("&")) {
+        for (String param : params.split("&")) {
             String paramKey = param.split("=")[0];
             String paramValue = param.split("=")[1];
 
-            if(paramKey.equals(key)) {
+            if (paramKey.equals(key)) {
                 return paramValue;
             }
         }
+
         return "";
     }
 
