@@ -11,12 +11,18 @@ public class Rq {
         return cmd.split("\\?")[0];
     }
 
-    public String getParam(String key) {
+    public String getParam(String key, String defaultValue) {
 
         String params = cmd.split("\\?")[1];
 
         for (String param : params.split("&")) {
+
+            String[] paramBits = param.split("=");
             String paramKey = param.split("=")[0];
+
+            if(paramBits.length == 1) {
+                continue;
+            }
             String paramValue = param.split("=")[1];
 
             if (paramKey.equals(key)) {
@@ -24,11 +30,15 @@ public class Rq {
             }
         }
 
-        return "";
+        return defaultValue;
     }
 
-    public int getParamAsInt(String key) {
-        String rst = getParam(key);
-        return Integer.parseInt(rst);
+    public int getParamAsInt(String key, int defaultValue) {
+        String rst = getParam(key, "");
+        try {
+            return Integer.parseInt(rst);
+        } catch(NumberFormatException e) {
+            return defaultValue;
+        }
     }
 }
